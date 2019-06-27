@@ -1,0 +1,44 @@
+#Title{
+
+text-align: center;
+margin-left: 100px;
+margin-right: 100px;
+background-color: gray;
+
+}
+
+h1{
+
+text-align: center;
+background-color: gray;
+
+}
+
+.table{
+
+text-align: center;
+
+}
+
+
+div{
+
+margin-left: 100px;
+margin-right: 100px;
+
+}
+
+.form-group{
+
+margin-left: 100px;
+margin-right: 100px;
+
+
+}
+
+button {
+
+margin-left: 200px; 
+background-color: gray
+
+}
