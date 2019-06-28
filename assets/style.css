@@ -1,22 +1,44 @@
+.text-muted{
+
+color: black;
+
+}
+
+div #background{
+
+background-color: darkred;
+
+}
+
 #Title{
 
 text-align: center;
-margin-left: 100px;
-margin-right: 100px;
-background-color: gray;
+/* margin-left: 100px;
+margin-right: 100px; */
+background-color: darkred;
+color: white;
+}
+
+form{
+
+margin-left: 200px;
+margin-right: 200px;
+background-color: darkred;
 
 }
 
 h1{
 
 text-align: center;
-background-color: gray;
+background-color: darkred;
 
 }
 
 .table{
 
 text-align: center;
+background-color: darkred;
+color: white;
 
 }
 
@@ -33,12 +55,19 @@ margin-right: 100px;
 margin-left: 100px;
 margin-right: 100px;
 
-
 }
 
 button {
 
 margin-left: 200px; 
-background-color: gray
+background-color: darkred;
+color : white;
+
+}
+
+#add-train{
+
+color: white;
+border: 3px;
 
 }
