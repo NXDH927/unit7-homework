@@ -14,7 +14,8 @@ var database = firebase.database();
 var name = "";
 var destination = "";
 var frequency = 0;
-var nextArrival = "";
+var firstArrival = "";
+var currentTime = moment();
 
 // Capture Button Click
 $("#add-train").on("click", function(event) {
@@ -26,14 +27,14 @@ $("#add-train").on("click", function(event) {
   name = $("#name-input").val().trim();
   destination = $("#destination-input").val().trim();
   frequency = $("#frequency-input").val().trim();
-  nextArrival = $("#nextArrival-input").val().trim();
+  firstArrival = $("#firstArrival-input").val().trim();
 
   // Code for the push
   database.ref().push({
     name: name,
     destination: destination,
     frequency: frequency,
-    nextArrival: nextArrival,
+    firstArrival: firstArrival,
   });
 });
 
@@ -41,16 +42,21 @@ $("#add-train").on("click", function(event) {
 database.ref().on("child_added", function(childSnapshot, prevChildkey) {
 
   // Log everything that's coming out of snapshot
-  console.log(childSnapshot.val().name);
-  console.log(childSnapshot.val().destination);
-  console.log(childSnapshot.val().frequency);
-  console.log(childSnapshot.val().nextArrival);
+  // console.log(childSnapshot.val().name);
+  // console.log(childSnapshot.val().destination);
+  // console.log(childSnapshot.val().frequency);
+  // console.log(childSnapshot.val().firstArrival);
 
   var sv = childSnapshot.val();
   var newName = (sv.name);
   var newDestination = (sv.destination);
   var newfrequency = (sv.frequency);
-  var newnextArrival = (sv.nextArrival);
+  var newfirstArrival = (sv.firstArrival);
+  var diffTime = moment().diff(moment(newfirstArrival,"HH:mm"), "minutes");
+  var tRemainder = diffTime % newfrequency;
+  var tMinutesTillTrain = newfrequency - tRemainder;
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  nextTrain =  moment(nextTrain).format("hh:mm");
 
 // function militaryTime{
 
@@ -101,9 +107,15 @@ $(".table").append(
 
   "</td><td>" +
 
-    newnextArrival +
+    newfirstArrival +
 
   "</td><td>" +
+
+    tMinutesTillTrain +
+
+  "</td><td>" +
+
+    nextTrain +
 
   "</td></tr>"
 
@@ -120,5 +132,12 @@ database.ref().orderByChild("dateAdded").on("child_added", function(snapshot) {
   $("#name-display").append(snapshot.val().name);
   $("#destination-display").append(snapshot.val().destination);
   $("#frequency-display").append(snapshot.val().frequency);
-  $("#nextArrival-display").append(snapshot.val().nextArrival);
+  $("#firstArrival-display").append(snapshot.val().firstArrival);
 });
+
+console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+console.log("DIFFERENCE IN TIME: " + diffTime);
+console.log(tRemainder);
+console.log(frequency);
+console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
